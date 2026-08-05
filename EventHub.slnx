@@ -1,3 +1,6 @@
 <Solution>
+  <Project Path="EventHub.BLL/EventHub.BLL.csproj" />
+  <Project Path="EventHub.DAL/EventHub.DAL.csproj" />
+  <Project Path="EventHub.Models/EventHub.Models.csproj" />
   <Project Path="EventHub/EventHub.csproj" />
 </Solution>
