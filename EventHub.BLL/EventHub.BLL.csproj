@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EventHub.DAL\EventHub.DAL.csproj" />
+    <ProjectReference Include="..\EventHub.Models\EventHub.Models.csproj" />
+  </ItemGroup>
+
 </Project>
