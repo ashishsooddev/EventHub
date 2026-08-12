@@ -23,5 +23,21 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
 
     public DbSet<Registration> Registrations { get; set; }
 
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
 
- }
+        // For -> Category configuration
+        modelBuilder.Entity<Category>(entity =>
+        {
+            entity.HasKey(c => c.CategoryId);
+
+            entity.Property(c => c.Name)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            entity.Property(c => c.Description)
+                .HasMaxLength(500);
+        });
+    }
+}
