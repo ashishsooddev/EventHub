@@ -10,13 +10,11 @@ public class Registration
 {
     public int RegistrationId { get; set; }
 
-    public string ApplicationUserId { get; set; } = string.Empty;
+    public string UserId { get; set; } = string.Empty;
 
     public int EventId { get; set; }
 
     public DateTime RegistrationDate { get; set; }
-
-    public ApplicationUser? ApplicationUser { get; set; }
 
     public Event? Event { get; set; }
 }
