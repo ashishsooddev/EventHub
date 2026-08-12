@@ -1,44 +1,103 @@
+using EventHub.DAL.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using EventHub.Data;
-namespace EventHub
+
+namespace EventHub;
+
+public class Program
 {
-    public class Program
+    public static void Main(string[] args)
     {
-        public static void Main(string[] args)
+        var builder = WebApplication.CreateBuilder(args);
+
+        var connectionString = builder.Configuration.GetConnectionString("ApplicationDbContext")
+            ?? throw new InvalidOperationException(
+                "Connection string 'ApplicationDbContext' not found.");
+
+        builder.Services.AddDbContext<ApplicationDbContext>(options =>
+            options.UseSqlServer(connectionString));
+
+        builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+            options.SignIn.RequireConfirmedAccount = true)
+            .AddRoles<IdentityRole>()
+            .AddEntityFrameworkStores<ApplicationDbContext>();
+
+        builder.Services.AddControllersWithViews();
+
+        builder.Services.AddRazorPages();
+
+        var app = builder.Build();
+
+        SeedRolesAndUsersAsync(app.Services).GetAwaiter().GetResult();
+
+        if (!app.Environment.IsDevelopment())
         {
-            var builder = WebApplication.CreateBuilder(args);
-            var connectionString = builder.Configuration.GetConnectionString("ApplicationDbContext") ?? throw new InvalidOperationException("Connection string 'ApplicationDbContext' not found.");
+            app.UseExceptionHandler("/Home/Error");
+            app.UseHsts();
+        }
 
-            builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
+        app.UseHttpsRedirection();
 
-            builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
+        app.UseStaticFiles();
 
-            // Add services to the container.
-            builder.Services.AddControllersWithViews();
+        app.UseRouting();
 
-            var app = builder.Build();
+        app.UseAuthentication();
 
-            // Configure the HTTP request pipeline.
-            if (!app.Environment.IsDevelopment())
+        app.UseAuthorization();
+
+        app.MapControllerRoute(
+            name: "default",
+            pattern: "{controller=Home}/{action=Index}/{id?}");
+
+        app.MapRazorPages();
+
+        app.Run();
+    }
+
+    private static async Task SeedRolesAndUsersAsync(
+        IServiceProvider serviceProvider)
+    {
+        using IServiceScope scope = serviceProvider.CreateScope();
+
+        RoleManager<IdentityRole> roleManager =
+            scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+        UserManager<IdentityUser> userManager =
+            scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+
+        string[] roles = { "Admin", "Standard User" };
+
+        foreach (string role in roles)
+        {
+            if (!await roleManager.RoleExistsAsync(role))
             {
-                app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
+                await roleManager.CreateAsync(new IdentityRole(role));
             }
+        }
 
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
+        string adminEmail = "admin@eventhub.com";
+        string adminPassword = "Admin123!";
 
-            app.UseRouting();
+        IdentityUser? adminUser =
+            await userManager.FindByEmailAsync(adminEmail);
 
-            app.UseAuthorization();
+        if (adminUser == null)
+        {
+            adminUser = new IdentityUser
+            {
+                UserName = adminEmail,
+                Email = adminEmail,
+                EmailConfirmed = true
+            };
 
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+            IdentityResult result =
+                await userManager.CreateAsync(adminUser, adminPassword);
 
-            app.Run();
+            if (result.Succeeded)
+            {
+                await userManager.AddToRoleAsync(adminUser, "Admin");
+            }
         }
     }
 }
