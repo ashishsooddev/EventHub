@@ -99,5 +99,31 @@ public class Program
                 await userManager.AddToRoleAsync(adminUser, "Admin");
             }
         }
+
+        string userEmail = "user@eventhub.com";
+        string userPassword = "User123!";
+
+        IdentityUser? standardUser =
+            await userManager.FindByEmailAsync(userEmail);
+
+        if (standardUser == null)
+        {
+            standardUser = new IdentityUser
+            {
+                UserName = userEmail,
+                Email = userEmail,
+                EmailConfirmed = true
+            };
+
+            IdentityResult result =
+                await userManager.CreateAsync(standardUser,userPassword);
+
+            if (result.Succeeded)
+            {
+                await userManager.AddToRoleAsync(
+                    standardUser,
+                    "Standard User");
+            }
+        }
     }
 }
