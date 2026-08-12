@@ -51,7 +51,7 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
 
             entity.Property(e => e.Description)
                 .IsRequired()
-                .HasMaxLength(1000);
+                .HasMaxLength(1200);
 
             entity.Property(e => e.EventDate)
                 .IsRequired();
@@ -67,6 +67,31 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
                 .WithMany(c => c.Events)
                 .HasForeignKey(e => e.CategoryId)
                 .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        // for -> registration configuration
+        modelBuilder.Entity<Registration>(entity =>
+        {
+            entity.HasKey(r => r.RegistrationId);
+
+            entity.Property(r => r.UserId)
+                .IsRequired();
+
+            entity.Property(r => r.RegistrationDate)
+                .IsRequired();
+
+            entity.HasOne(r => r.Event)
+                .WithMany(e => e.Registrations)
+                .HasForeignKey(r => r.EventId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasOne<IdentityUser>()
+                .WithMany()
+                .HasForeignKey(r => r.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasIndex(r => new { r.UserId, r.EventId })
+                .IsUnique();
         });
     }
 }
