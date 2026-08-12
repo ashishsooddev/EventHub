@@ -39,5 +39,34 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
             entity.Property(c => c.Description)
                 .HasMaxLength(500);
         });
+
+        // for => Event configuration
+        modelBuilder.Entity<Event>(entity =>
+        {
+            entity.HasKey(e => e.EventId);
+
+            entity.Property(e => e.Title)
+                .IsRequired()
+                .HasMaxLength(150);
+
+            entity.Property(e => e.Description)
+                .IsRequired()
+                .HasMaxLength(1000);
+
+            entity.Property(e => e.EventDate)
+                .IsRequired();
+
+            entity.Property(e => e.Location)
+                .IsRequired()
+                .HasMaxLength(200);
+
+            entity.Property(e => e.Capacity)
+                .IsRequired();
+
+            entity.HasOne(e => e.Category)
+                .WithMany(c => c.Events)
+                .HasForeignKey(e => e.CategoryId)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
     }
 }
