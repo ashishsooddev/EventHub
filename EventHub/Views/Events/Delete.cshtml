@@ -24,8 +24,19 @@
         </p>
 
         <p>
-            <strong>Category:</strong>
-            @Model.Category?.Name
+            <strong>Categories:</strong>
+
+            @if (Model.Categories.Any())
+            {
+                @foreach (var category in Model.Categories)
+                {
+                    <span>@category.Name </span>
+                }
+            }
+            else
+            {
+                <span>No categories</span>
+            }
         </p>
     </div>
 
