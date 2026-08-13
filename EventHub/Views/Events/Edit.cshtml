@@ -58,14 +58,11 @@
         </div>
 
         <div class="form-group">
-            <label asp-for="CategoryId">Category</label>
-            <select asp-for="CategoryId"
-                    asp-items="ViewBag.CategoryId">
-                <option value="">Select a category</option>
+            <label>Categories</label>
+            <select name="CategoryIds"
+                    multiple
+                    asp-items="ViewBag.Categories">
             </select>
-            <span asp-validation-for="CategoryId"
-                  class="validation-message">
-            </span>
         </div>
 
         <div class="form-buttons">
