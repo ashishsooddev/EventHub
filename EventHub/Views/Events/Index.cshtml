@@ -3,3 +3,75 @@
 @{
     ViewData["Title"] = "Events";
 }
+
+<div class="events-container">
+
+    <h1>Events</h1>
+
+    @if (User.Identity?.IsAuthenticated == true)
+    {
+        <a asp-action="Create" class="button">Create Event</a>
+    }
+
+    @if (!Model.Any())
+    {
+        <p>No events are available.</p>
+    }
+    else
+    {
+        <div class="events-list">
+            @foreach (var eventItem in Model)
+            {
+                <div class="event-item">
+
+                    <h2>@eventItem.Title</h2>
+                    <p>@eventItem.Description</p>
+
+                    <p>
+                        <strong>Date:</strong>
+                        @eventItem.EventDate.ToString("MM dd, yyyy")
+                    </p>
+
+                    <p>
+                        <strong>Location:</strong>
+                        @eventItem.Location
+                    </p>
+
+                    <p>
+                        <strong>Capacity:</strong>
+                        @eventItem.Capacity
+                    </p>
+
+                    <p>
+                        <strong>Category:</strong>
+                        @eventItem.Category?.Name
+                    </p>
+
+                    <div class="event-actions">
+
+                        <a asp-action="Details"
+                           asp-route-id="@eventItem.EventId">
+                            Details
+                        </a>
+
+                        @if (User.Identity?.IsAuthenticated == true)
+                        {
+                            <a asp-action="Edit"
+                               asp-route-id="@eventItem.EventId">
+                                Edit
+                            </a>
+                        }
+
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a asp-action="Delete"
+                               asp-route-id="@eventItem.EventId">
+                                Delete
+                            </a>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
