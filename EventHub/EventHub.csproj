@@ -25,4 +25,8 @@
     <ProjectReference Include="..\EventHub.Models\EventHub.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\" />
+  </ItemGroup>
+
 </Project>
