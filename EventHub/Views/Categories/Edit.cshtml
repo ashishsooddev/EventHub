@@ -1,5 +1,48 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model EventHub.Models.Category
+
 @{
+    ViewData["Title"] = "Edit Category";
+}
+
+<div class="category-form">
+
+    <h1>Edit Category</h1>
+
+    <form asp-action="Edit" method="post">
+
+        <input type="hidden" asp-for="CategoryId" />
+
+        <div asp-validation-summary="ModelOnly"
+             class="validation-message">
+        </div>
+
+        <div class="form-group">
+
+            <label asp-for="Name"></label>
+            <input asp-for="Name" />
+            <span asp-validation-for="Name"
+                  class="validation-message">
+            </span>
+
+        </div>
+
+        <div class="form-group">
+
+            <label asp-for="Description"></label>
+            <textarea asp-for="Description"></textarea>
+            <span asp-validation-for="Description"
+                  class="validation-message">
+            </span>
+
+        </div>
+
+        <div class="form-buttons">
+            <button type="submit">Save Changes</button>
+            <a asp-action="Index">Cancel</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
 }
