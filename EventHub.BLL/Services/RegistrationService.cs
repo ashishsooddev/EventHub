@@ -36,5 +36,21 @@ public class RegistrationService
         _context.Registrations.Add(registration);
         await _context.SaveChangesAsync();
     }
+    public async Task UpdateAsync(Registration registration)
+    {
+        _context.Registrations.Update(registration);
+        await _context.SaveChangesAsync();
+    }
 
+    public async Task DeleteAsync(int id)
+    {
+        var registration = await _context.Registrations
+            .FindAsync(id);
+
+        if (registration != null)
+        {
+            _context.Registrations.Remove(registration);
+            await _context.SaveChangesAsync();
+        }
+    }
 }
