@@ -20,9 +20,8 @@ public class Event
 
     public int Capacity { get; set; }
 
-    public int CategoryId { get; set; }
+    public ICollection<Category> Categories { get; set; } = new List<Category>();
 
-    public Category? Category { get; set; }
-
-    public ICollection<Registration> Registrations { get; set; } = new List<Registration>();
+    public ICollection<Registration> Registrations { get; set; } =
+        new List<Registration>();
 }
