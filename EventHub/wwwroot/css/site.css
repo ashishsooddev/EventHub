@@ -1109,3 +1109,283 @@ h1 {
         flex: none;
     }
 }
+
+/* ================================
+   EVENT DETAILS PAGE
+   ================================ */
+
+.event-details-page {
+    padding: 45px 0 40px;
+}
+
+/* ================================
+   DETAILS HEADER
+   ================================ */
+
+.event-details-header {
+    margin-bottom: 35px;
+    padding: 55px 50px;
+    background: linear-gradient(135deg, #5b4bdb, #7567e8);
+    border-radius: 18px;
+    color: white;
+}
+
+.event-details-header-content {
+    max-width: 800px;
+}
+
+.event-details-badge {
+    display: inline-block;
+    margin-bottom: 15px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.event-details-header h1 {
+    margin-bottom: 12px;
+    color: white;
+    font-size: 2.8rem;
+}
+
+.event-details-header p {
+    margin: 0;
+    color: #eeecff;
+    font-size: 1.05rem;
+}
+
+/* ================================
+   DETAILS LAYOUT
+   ================================ */
+
+.event-details-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
+    gap: 25px;
+    align-items: start;
+}
+
+/* ================================
+   DETAILS CARD
+   ================================ */
+
+.event-details-card {
+    padding: 32px;
+    background-color: #ffffff;
+    border: 1px solid #eeeeee;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.details-section {
+    margin-bottom: 10px;
+}
+
+.details-label {
+    display: block;
+    margin-bottom: 8px;
+    color: #5b4bdb;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+}
+
+.details-section h2 {
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+.event-description-large {
+    margin: 0;
+    color: #626975;
+    font-size: 1rem;
+    line-height: 1.8;
+}
+
+/* ================================
+   DIVIDER
+   ================================ */
+
+.details-divider {
+    height: 1px;
+    margin: 30px 0;
+    background-color: #eeeeee;
+}
+
+/* ================================
+   EVENT INFORMATION
+   ================================ */
+
+.event-information-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+}
+
+.event-information-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 18px;
+    border-radius: 12px;
+    background-color: #f8f9fc;
+}
+
+.details-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background-color: #f1efff;
+    font-size: 1.1rem;
+}
+
+.event-information-item div:last-child {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.event-information-item small {
+    color: #8a9099;
+    font-size: 0.75rem;
+}
+
+.event-information-item strong {
+    color: #343a40;
+    font-size: 0.9rem;
+}
+
+.event-information-item span {
+    color: #6c757d;
+    font-size: 0.85rem;
+}
+
+/* ================================
+   CATEGORIES
+   ================================ */
+
+.details-categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.details-category-badge {
+    padding: 7px 12px;
+    border-radius: 20px;
+    background-color: #f1efff;
+    color: #5b4bdb;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+/* ================================
+   SIDEBAR
+   ================================ */
+
+.event-details-sidebar {
+    position: sticky;
+    top: 20px;
+}
+
+.event-action-card {
+    padding: 25px;
+    background-color: #ffffff;
+    border: 1px solid #eeeeee;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+    .event-action-card h3 {
+        margin-bottom: 10px;
+        font-size: 1.25rem;
+    }
+
+    .event-action-card p {
+        margin-bottom: 22px;
+        color: #6c757d;
+        font-size: 0.9rem;
+        line-height: 1.6;
+    }
+
+/* ================================
+   DETAILS BUTTONS
+   ================================ */
+
+.details-edit-button,
+.details-back-button {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 11px 15px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.details-edit-button {
+    background-color: #5b4bdb;
+    color: white;
+}
+
+    .details-edit-button:hover {
+        background-color: #4638b8;
+        color: white;
+    }
+
+.details-back-button {
+    background-color: #f1f2f4;
+    color: #495057;
+}
+
+    .details-back-button:hover {
+        background-color: #e2e4e7;
+        color: #212529;
+    }
+
+/* ================================
+   DETAILS RESPONSIVE
+   ================================ */
+
+@media (max-width: 991px) {
+
+    .event-details-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .event-details-sidebar {
+        position: static;
+    }
+}
+
+@media (max-width: 767px) {
+
+    .event-details-page {
+        padding-top: 30px;
+    }
+
+    .event-details-header {
+        padding: 40px 25px;
+    }
+
+        .event-details-header h1 {
+            font-size: 2.2rem;
+        }
+
+    .event-details-card {
+        padding: 22px;
+    }
+
+    .event-information-grid {
+        grid-template-columns: 1fr;
+    }
+}

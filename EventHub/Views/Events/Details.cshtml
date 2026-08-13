@@ -4,58 +4,192 @@
     ViewData["Title"] = "Event Details";
 }
 
-<div class="event-details">
+<div class="event-details-page">
 
-    <h1>Event Details</h1>
-    <h2>@Model.Title</h2>
+    <!-- Event Header -->
+    <section class="event-details-header">
 
-    <p>
-        <strong>Description:</strong>
-        @Model.Description
-    </p>
+        <div class="event-details-header-content">
 
-    <p>
-        <strong>Date:</strong>
-        @Model.EventDate.ToString("MM dd, yyyy h:mm tt")
-    </p>
+            <span class="event-details-badge">
+                Event Details
+            </span>
 
-    <p>
-        <strong>Location:</strong>
-        @Model.Location
-    </p>
+            <h1>@Model.Title</h1>
 
-    <p>
-        <strong>Capacity:</strong>
-        @Model.Capacity
-    </p>
+            <p>
+                Discover the details and information about this event.
+            </p>
 
-    <p>
-        <strong>Categories:</strong>
+        </div>
 
-        @if (Model.Categories.Any())
-        {
-            @foreach (var category in Model.Categories)
-            {
-                <span>@category.Name </span>
-            }
-        }
-        else
-        {
-            <span>No categories</span>
-        }
-    </p>
+    </section>
 
-    <div class="event-actions">
 
-        @if (User.Identity?.IsAuthenticated == true)
-        {
-            <a asp-action="Edit"
-               asp-route-id="@Model.EventId">
-                Edit
-            </a>
-        }
-        <a asp-action="Index">
-            Back to Events
-        </a>
+    <!-- Event Content -->
+    <div class="event-details-layout">
+
+        <!-- Main Information -->
+        <div class="event-details-main">
+
+            <section class="event-details-card">
+
+                <div class="details-section">
+
+                    <span class="details-label">
+                        ABOUT THIS EVENT
+                    </span>
+
+                    <h2>Event Description</h2>
+
+                    <p class="event-description-large">
+                        @Model.Description
+                    </p>
+
+                </div>
+
+
+                <div class="details-divider"></div>
+
+
+                <div class="details-section">
+
+                    <span class="details-label">
+                        EVENT INFORMATION
+                    </span>
+
+                    <div class="event-information-grid">
+
+                        <div class="event-information-item">
+
+                            <div class="details-icon">
+                                📅
+                            </div>
+
+                            <div>
+                                <small>Date & Time</small>
+
+                                <strong>
+                                    @Model.EventDate.ToString("MMM dd, yyyy")
+                                </strong>
+
+                                <span>
+                                    @Model.EventDate.ToString("h:mm tt")
+                                </span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="event-information-item">
+
+                            <div class="details-icon">
+                                📍
+                            </div>
+
+                            <div>
+                                <small>Location</small>
+
+                                <strong>
+                                    @Model.Location
+                                </strong>
+                            </div>
+
+                        </div>
+
+
+                        <div class="event-information-item">
+
+                            <div class="details-icon">
+                                👥
+                            </div>
+
+                            <div>
+                                <small>Capacity</small>
+
+                                <strong>
+                                    @Model.Capacity people
+                                </strong>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="details-divider"></div>
+
+
+                <!-- Categories -->
+                <div class="details-section">
+
+                    <span class="details-label">
+                        CATEGORIES
+                    </span>
+
+                    <div class="details-categories">
+
+                        @if (Model.Categories.Any())
+                        {
+                            @foreach (var category in Model.Categories)
+                            {
+                                <span class="details-category-badge">
+                                    @category.Name
+                                </span>
+                            }
+                        }
+                        else
+                        {
+                            <span class="no-category">
+                                No categories
+                            </span>
+                        }
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+
+        <!-- Side Actions -->
+        <aside class="event-details-sidebar">
+
+            <div class="event-action-card">
+
+                <span class="details-label">
+                    EVENT ACTIONS
+                </span>
+
+                <h3>Manage This Event</h3>
+
+                <p>
+                    Use the options below to manage or return to the event list.
+                </p>
+
+
+                @if (User.Identity?.IsAuthenticated == true)
+                {
+                    <a asp-action="Edit"
+                       asp-route-id="@Model.EventId"
+                       class="details-edit-button">
+                        Edit Event
+                    </a>
+                }
+
+                <a asp-action="Index"
+                   class="details-back-button">
+                    ← Back to Events
+                </a>
+
+            </div>
+
+        </aside>
+
     </div>
+
 </div>
