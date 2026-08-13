@@ -4,42 +4,89 @@
     ViewData["Title"] = "Create Category";
 }
 
-<div class="category-form">
+<div class="category-form-page">
 
-    <h1>Create Category</h1>
+    <!-- Page Header -->
+    <div class="category-form-header">
 
-    <form asp-action="Create" method="post">
+        <span class="section-label">EVENTHUB</span>
 
-        <div asp-validation-summary="ModelOnly"
-             class="validation-message">
-        </div>
+        <h1>Create a Category</h1>
 
-        <div class="form-group">
+        <p>
+            Add a new category to help organize EventHub events.
+        </p>
 
-            <label asp-for="Name"></label>
-            <input asp-for="Name" />
-            <span asp-validation-for="Name"
-                  class="validation-message">
-            </span>
+    </div>
 
-        </div>
 
-        <div class="form-group">
+    <!-- Form Card -->
+    <div class="category-form-card">
 
-            <label asp-for="Description"></label>
-            <textarea asp-for="Description"></textarea>
-            <span asp-validation-for="Description"
-                  class="validation-message">
-            </span>
+        <form asp-action="Create" method="post">
 
-        </div>
+            <div asp-validation-summary="ModelOnly"
+                 class="validation-message">
+            </div>
 
-        <div class="form-buttons">
-            <button type="submit">Create Category</button>
-            <a asp-action="Index">Cancel</a>
-        </div>
-    </form>
+
+            <!-- Category Name -->
+            <div class="form-group">
+
+                <label asp-for="Name">
+                    Category Name
+                </label>
+
+                <input asp-for="Name"
+                       class="form-control"
+                       placeholder="Enter category name" />
+
+                <span asp-validation-for="Name"
+                      class="validation-message">
+                </span>
+
+            </div>
+
+
+            <!-- Description -->
+            <div class="form-group">
+
+                <label asp-for="Description">
+                    Description
+                </label>
+
+                <textarea asp-for="Description"
+                          class="form-control category-description-input"
+                          placeholder="Describe this category..."></textarea>
+
+                <span asp-validation-for="Description"
+                      class="validation-message">
+                </span>
+
+            </div>
+
+
+            <!-- Buttons -->
+            <div class="form-buttons">
+
+                <button type="submit"
+                        class="btn btn-primary">
+                    Create Category
+                </button>
+
+                <a asp-action="Index"
+                   class="btn form-cancel-button">
+                    Cancel
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
 </div>
+
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

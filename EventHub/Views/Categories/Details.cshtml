@@ -4,46 +4,166 @@
     ViewData["Title"] = "Category Details";
 }
 
-<div class="category-details">
+<div class="category-details-page">
 
-    <h1>Category Details</h1>
+    <!-- Header -->
+    <section class="category-details-header">
 
-    <h2>@Model.Name</h2>
+        <div class="category-details-icon">
+            🏷️
+        </div>
 
-    <p>
-        <strong>Description:</strong>
-        @Model.Description
-    </p>
+        <div>
+            <span class="section-label">EVENTHUB CATEGORY</span>
 
-    <h3>Events</h3>
+            <h1>@Model.Name</h1>
 
-    @if (Model.Events.Any())
-    {
-        <ul class="category-events">
+            <p>
+                Explore the events available in this category.
+            </p>
+        </div>
 
-            @foreach (var eventItem in Model.Events)
-            {
-                <li>@eventItem.Title</li>
-            }
-        </ul>
-    }
-    else
-    {
-        <p>No events are assigned to this category.</p>
-    }
+    </section>
 
-    <div class="category-actions">
 
-        @if (User.Identity?.IsAuthenticated == true)
-        {
-            <a asp-action="Edit"
-               asp-route-id="@Model.CategoryId">
-                Edit
-            </a>
-        }
+    <!-- Main Layout -->
+    <div class="category-details-layout">
 
-        <a asp-action="Index">
-            Back to Categories
-        </a>
+        <!-- Category Information -->
+        <div class="category-details-main">
+
+            <div class="category-details-card">
+
+                <span class="details-label">
+                    CATEGORY DESCRIPTION
+                </span>
+
+                <h2>About @Model.Name</h2>
+
+                <p class="category-details-description">
+                    @Model.Description
+                </p>
+
+
+                <div class="details-divider"></div>
+
+
+                <!-- Events -->
+                <div class="category-events-section">
+
+                    <div class="category-events-heading">
+
+                        <div>
+                            <span class="details-label">
+                                EVENTS
+                            </span>
+
+                            <h2>Events in this Category</h2>
+                        </div>
+
+                        <span class="category-events-number">
+                            @Model.Events.Count
+                            @(Model.Events.Count == 1 ? "Event" : "Events")
+                        </span>
+
+                    </div>
+
+
+                    @if (Model.Events.Any())
+                    {
+                        <div class="category-events-list">
+
+                            @foreach (var eventItem in Model.Events)
+                            {
+                                <div class="category-event-row">
+
+                                    <div class="category-event-row-icon">
+                                        📅
+                                    </div>
+
+                                    <div class="category-event-row-content">
+
+                                        <h3>
+                                            @eventItem.Title
+                                        </h3>
+
+                                        <p>
+                                            @eventItem.EventDate.ToString("MMM dd, yyyy h:mm tt")
+                                        </p>
+
+                                    </div>
+
+                                    <a asp-controller="Events"
+                                       asp-action="Details"
+                                       asp-route-id="@eventItem.EventId"
+                                       class="category-event-view">
+                                        View
+                                    </a>
+
+                                </div>
+                            }
+
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="category-no-events">
+
+                            <div>
+                                📅
+                            </div>
+
+                            <h3>No Events Yet</h3>
+
+                            <p>
+                                No events are currently assigned to this category.
+                            </p>
+
+                        </div>
+                    }
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Actions -->
+        <aside class="category-details-sidebar">
+
+            <div class="category-action-card">
+
+                <span class="details-label">
+                    CATEGORY ACTIONS
+                </span>
+
+                <h3>Manage Category</h3>
+
+                <p>
+                    Use the options below to manage this category
+                    or return to the category list.
+                </p>
+
+
+                @if (User.Identity?.IsAuthenticated == true)
+                {
+                    <a asp-action="Edit"
+                       asp-route-id="@Model.CategoryId"
+                       class="details-edit-button">
+                        Edit Category
+                    </a>
+                }
+
+                <a asp-action="Index"
+                   class="details-back-button">
+                    ← Back to Categories
+                </a>
+
+            </div>
+
+        </aside>
+
     </div>
+
 </div>

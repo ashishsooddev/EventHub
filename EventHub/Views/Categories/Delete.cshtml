@@ -6,29 +6,104 @@
 
 <div class="delete-page">
 
-    <h1>Delete Category</h1>
+    <!-- Delete Header -->
+    <div class="delete-header">
 
-    <p>Are you sure you want to delete this category?</p>
+        <div class="delete-icon">
+            !
+        </div>
 
-    <div class="category-information">
+        <span class="section-label">
+            EVENTHUB
+        </span>
 
-        <h2>@Model.Name</h2>
+        <h1>Delete Category</h1>
 
         <p>
-            <strong>Description:</strong>
-            @Model.Description
+            Are you sure you want to delete this category?
+            This action cannot be undone.
         </p>
 
-        <p>
-            <strong>Events:</strong>
-            @Model.Events.Count
-        </p>
     </div>
 
-    <form asp-action="Delete" method="post">
-        <input type="hidden" asp-for="CategoryId" />
-        <button type="submit"> Delete Category</button>
-        <a asp-action="Index">Cancel</a>
-    </form>
+
+    <!-- Category Information -->
+    <div class="delete-card">
+
+        <div class="delete-event-information">
+
+            <span class="details-label">
+                CATEGORY TO BE DELETED
+            </span>
+
+            <h2>@Model.Name</h2>
+
+
+            <div class="category-delete-description">
+
+                <small>Description</small>
+
+                <p>
+                    @Model.Description
+                </p>
+
+            </div>
+
+
+            <div class="category-delete-event-count">
+
+                <span class="delete-detail-icon">
+                    📅
+                </span>
+
+                <div>
+
+                    <small>Events in this category</small>
+
+                    <strong>
+                        @Model.Events.Count
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Warning -->
+        <div class="delete-warning">
+
+            <strong>Warning</strong>
+
+            <p>
+                Deleting this category may affect events assigned
+                to it. Please make sure you want to continue.
+            </p>
+
+        </div>
+
+
+        <!-- Buttons -->
+        <form asp-action="Delete"
+              method="post"
+              class="delete-form">
+
+            <input type="hidden"
+                   asp-for="CategoryId" />
+
+            <button type="submit"
+                    class="delete-confirm-button">
+                Delete Category
+            </button>
+
+            <a asp-action="Index"
+               class="delete-cancel-button">
+                Cancel
+            </a>
+
+        </form>
+
+    </div>
 
 </div>

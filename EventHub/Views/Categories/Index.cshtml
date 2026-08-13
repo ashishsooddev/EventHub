@@ -4,61 +4,158 @@
     ViewData["Title"] = "Categories";
 }
 
-<div class="categories-container">
+<div class="categories-page">
 
-    <h1>Categories</h1>
+    <!-- Page Header -->
+    <section class="categories-page-header">
 
-    @if (User.Identity?.IsAuthenticated == true)
-    {
-        <a asp-action="Create" class="button">Create Category</a>
-    }
+        <div>
+            <span class="section-label">EVENTHUB</span>
+
+            <h1>Event Categories</h1>
+
+            <p>
+                Explore events by category and discover something interesting.
+            </p>
+        </div>
+
+        @if (User.Identity?.IsAuthenticated == true)
+        {
+            <a asp-action="Create"
+               class="btn btn-primary create-category-button">
+                + Create Category
+            </a>
+        }
+
+    </section>
+
 
     @if (!Model.Any())
     {
-        <p>No categories are available this moment.</p>
+        <!-- Empty State -->
+        <div class="categories-empty-state">
+
+            <div class="empty-category-icon">
+                🏷️
+            </div>
+
+            <h2>No Categories Available</h2>
+
+            <p>
+                There are currently no categories available.
+                Create a category to get started.
+            </p>
+
+            @if (User.Identity?.IsAuthenticated == true)
+            {
+                <a asp-action="Create"
+                   class="btn btn-primary">
+                    Create Category
+                </a>
+            }
+
+        </div>
     }
     else
     {
-        <div class="categories-list">
+        <!-- Category Count -->
+        <div class="categories-result-header">
+
+            <p>
+                Showing <strong>@Model.Count()</strong> categor@(Model.Count() == 1 ? "y" : "ies")
+            </p>
+
+        </div>
+
+
+        <!-- Categories Grid -->
+        <div class="categories-grid">
 
             @foreach (var category in Model)
             {
-                <div class="category-item">
+                <article class="category-card">
 
-                    <h2>@category.Name</h2>
+                    <!-- Category Header -->
+                    <div class="category-card-header">
 
-                    <p>@category.Description</p>
+                        <div class="category-icon">
+                            🏷️
+                        </div>
 
-                    <p>
-                        <strong>Events:</strong>
-                        @category.Events.Count
-                    </p>
+                        <span class="category-count">
+                            @category.Events.Count
+                            @(category.Events.Count == 1 ? "Event" : "Events")
+                        </span>
 
-                    <div class="category-actions">
-
-                        <a asp-action="Details"
-                           asp-route-id="@category.CategoryId">
-                            Details
-                        </a>
-
-                        @if (User.Identity?.IsAuthenticated == true)
-                        {
-                            <a asp-action="Edit"
-                               asp-route-id="@category.CategoryId">
-                                Edit
-                            </a>
-                        }
-                        @* This is used Only ADMIN has access to delete anything *@
-                        @if (User.IsInRole("Admin"))    
-                        {
-                            <a asp-action="Delete"
-                               asp-route-id="@category.CategoryId">
-                                Delete
-                            </a>
-                        }
                     </div>
-                </div>
+
+
+                    <!-- Category Content -->
+                    <div class="category-card-content">
+
+                        <h2>@category.Name</h2>
+
+                        <p class="category-description">
+                            @category.Description
+                        </p>
+
+
+                        <!-- Event Count -->
+                        <div class="category-event-info">
+
+                            <span class="category-event-icon">
+                                📅
+                            </span>
+
+                            <div>
+                                <small>Events in this category</small>
+
+                                <strong>
+                                    @category.Events.Count
+                                </strong>
+                            </div>
+
+                        </div>
+
+
+                        <!-- Actions -->
+                        <div class="category-actions">
+
+                            <a asp-action="Details"
+                               asp-route-id="@category.CategoryId"
+                               class="category-action-primary">
+                                View Details
+                                <span>→</span>
+                            </a>
+
+
+                            @if (User.Identity?.IsAuthenticated == true)
+                            {
+                                <a asp-action="Edit"
+                                   asp-route-id="@category.CategoryId"
+                                   class="category-action-secondary">
+                                    Edit
+                                </a>
+                            }
+
+
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a asp-action="Delete"
+                                   asp-route-id="@category.CategoryId"
+                                   class="category-action-delete">
+                                    Delete
+                                </a>
+                            }
+
+                        </div>
+
+                    </div>
+
+                </article>
             }
+
         </div>
     }
+
 </div>
