@@ -27,71 +27,60 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     {
         base.OnModelCreating(modelBuilder);
 
-        // For -> Category configuration
-        modelBuilder.Entity<Category>(entity =>
-        {
-            entity.HasKey(c => c.CategoryId);
+        modelBuilder.Entity<Category>()
+            .HasKey(c => c.CategoryId);
 
-            entity.Property(c => c.Name)
-                .IsRequired()
-                .HasMaxLength(100);
+        modelBuilder.Entity<Category>()
+            .Property(c => c.Name)
+            .IsRequired()
+            .HasMaxLength(100);
 
-            entity.Property(c => c.Description)
-                .HasMaxLength(500);
-        });
+        modelBuilder.Entity<Category>()
+            .Property(c => c.Description)
+            .HasMaxLength(500);
 
-        // for => Event configuration
-        modelBuilder.Entity<Event>(entity =>
-        {
-            entity.HasKey(e => e.EventId);
+        modelBuilder.Entity<Event>()
+            .HasKey(e => e.EventId);
 
-            entity.Property(e => e.Title)
-                .IsRequired()
-                .HasMaxLength(150);
+        modelBuilder.Entity<Event>()
+            .Property(e => e.Title)
+            .IsRequired()
+            .HasMaxLength(150);
 
-            entity.Property(e => e.Description)
-                .IsRequired()
-                .HasMaxLength(1200);
+        modelBuilder.Entity<Event>()
+            .Property(e => e.Description)
+            .HasMaxLength(1000);
 
-            entity.Property(e => e.EventDate)
-                .IsRequired();
+        modelBuilder.Entity<Event>()
+            .Property(e => e.Location)
+            .IsRequired()
+            .HasMaxLength(200);
 
-            entity.Property(e => e.Location)
-                .IsRequired()
-                .HasMaxLength(200);
+        modelBuilder.Entity<Event>()
+            .Property(e => e.Capacity)
+            .IsRequired();
 
-            entity.Property(e => e.Capacity)
-                .IsRequired();
+        modelBuilder.Entity<Event>()
+            .HasMany(e => e.Categories)
+            .WithMany(c => c.Events)
+            .UsingEntity(j => j.ToTable("EventCategories"));
 
-            entity.HasOne(e => e.Category)
-                .WithMany(c => c.Events)
-                .HasForeignKey(e => e.CategoryId)
-                .OnDelete(DeleteBehavior.Cascade);
-        });
+        modelBuilder.Entity<Registration>()
+            .HasKey(r => r.RegistrationId);
 
-        // for -> registration configuration
-        modelBuilder.Entity<Registration>(entity =>
-        {
-            entity.HasKey(r => r.RegistrationId);
+        modelBuilder.Entity<Registration>()
+            .Property(r => r.UserId)
+            .IsRequired()
+            .HasMaxLength(450);
 
-            entity.Property(r => r.UserId)
-                .IsRequired();
+        modelBuilder.Entity<Registration>()
+            .HasOne(r => r.Event)
+            .WithMany(e => e.Registrations)
+            .HasForeignKey(r => r.EventId)
+            .OnDelete(DeleteBehavior.Cascade);
 
-            entity.Property(r => r.RegistrationDate)
-                .IsRequired();
-
-            entity.HasOne(r => r.Event)
-                .WithMany(e => e.Registrations)
-                .HasForeignKey(r => r.EventId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            entity.HasOne<IdentityUser>()
-                .WithMany()
-                .HasForeignKey(r => r.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            entity.HasIndex(r => new { r.UserId, r.EventId })
-                .IsUnique();
-        });
+        modelBuilder.Entity<Registration>()
+            .Property(r => r.RegistrationDate)
+            .IsRequired();
     }
 }
