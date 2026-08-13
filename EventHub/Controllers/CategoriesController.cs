@@ -13,5 +13,25 @@ namespace EventHub.Controllers
             _categoryService = categoryService;
         }
 
+        [AllowAnonymous]
+        public async Task<IActionResult> Index()
+        {
+            var categories = await _categoryService.GetAllAsync();
+            return View(categories);
+        }
+
+        [AllowAnonymous]
+        public async Task<IActionResult> Details(int id)
+        {
+            var category = await _categoryService.GetByIdAsync(id);
+
+            if (category == null)
+            {
+                return NotFound();
+            }
+
+            return View(category);
+        }
+
     }
 }
