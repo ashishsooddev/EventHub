@@ -1389,3 +1389,173 @@ h1 {
         grid-template-columns: 1fr;
     }
 }
+
+/* ================================
+   CREATE / EVENT FORM PAGE
+   ================================ */
+
+.event-form-page {
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 45px 0 50px;
+}
+
+/* ================================
+   FORM HEADER
+   ================================ */
+
+.event-form-header {
+    margin-bottom: 30px;
+}
+
+    .event-form-header h1 {
+        margin: 0 0 8px;
+        font-size: 2.5rem;
+    }
+
+    .event-form-header p {
+        margin: 0;
+        color: #6c757d;
+        font-size: 1.05rem;
+    }
+
+/* ================================
+   FORM CARD
+   ================================ */
+
+.event-form-card {
+    padding: 35px;
+    background-color: #ffffff;
+    border: 1px solid #eeeeee;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+}
+
+/* ================================
+   FORM GROUP
+   ================================ */
+
+.form-group {
+    margin-bottom: 22px;
+}
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: #343a40;
+        font-weight: 600;
+    }
+
+    .form-group .form-control {
+        width: 100%;
+    }
+
+.event-description-input {
+    min-height: 150px;
+    resize: vertical;
+}
+
+/* ================================
+   FORM ROW
+   ================================ */
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+/* ================================
+   FORM HELP TEXT
+   ================================ */
+
+.form-help-text {
+    margin: -2px 0 8px;
+    color: #6c757d;
+    font-size: 0.85rem;
+}
+
+/* ================================
+   CATEGORY SELECT
+   ================================ */
+
+.category-select {
+    min-height: 130px;
+    padding: 8px;
+}
+
+    .category-select option {
+        padding: 8px;
+    }
+
+/* ================================
+   FORM BUTTONS
+   ================================ */
+
+.form-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 30px;
+    padding-top: 25px;
+    border-top: 1px solid #eeeeee;
+}
+
+    .form-buttons .btn {
+        min-width: 130px;
+    }
+
+.form-cancel-button {
+    background-color: #f1f2f4;
+    border: 1px solid #e2e4e7;
+    color: #495057;
+}
+
+    .form-cancel-button:hover {
+        background-color: #e2e4e7;
+        color: #212529;
+    }
+
+/* ================================
+   VALIDATION
+   ================================ */
+
+.validation-message {
+    display: block;
+    margin-top: 5px;
+    color: #dc3545;
+    font-size: 0.85rem;
+}
+
+/* ================================
+   FORM RESPONSIVE
+   ================================ */
+
+@media (max-width: 767px) {
+
+    .event-form-page {
+        padding: 30px 15px 40px;
+    }
+
+    .event-form-header h1 {
+        font-size: 2.1rem;
+    }
+
+    .event-form-card {
+        padding: 22px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .form-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+        .form-buttons .btn {
+            width: 100%;
+        }
+}
