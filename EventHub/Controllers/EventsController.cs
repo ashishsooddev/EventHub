@@ -53,5 +53,38 @@ namespace EventHub.Controllers
             await _eventService.CreateAsync(eventItem);
             return RedirectToAction(nameof(Index));
         }
+
+        [Authorize]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var eventItem = await _eventService.GetByIdAsync(id);
+
+            if (eventItem == null)
+            {
+                return NotFound();
+            }
+
+            return View(eventItem);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public async Task<IActionResult> Edit(int id, Event eventItem)
+        {
+            if (id != eventItem.EventId)
+            {
+                return NotFound();
+            }
+            if (!ModelState.IsValid)
+            {
+                return View(eventItem);
+            }
+
+            await _eventService.UpdateAsync(eventItem);
+            return RedirectToAction(nameof(Index));
+        }
+        
+
     }
 }
