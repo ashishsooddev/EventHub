@@ -1,5 +1,44 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model EventHub.Models.Registration
+
 @{
+    ViewData["Title"] = "Registration Details";
 }
+
+<div class="registration-details">
+
+    <h1>Registration Details</h1>
+
+    <h2>@Model.Event?.Title</h2>
+
+    <p>
+        <strong>Event Date:</strong>
+        @Model.Event?.EventDate.ToString("MMMM dd, yyyy h:mm tt")
+    </p>
+
+    <p>
+        <strong>Location:</strong>
+        @Model.Event?.Location
+    </p>
+
+    <p>
+        <strong>Registration Date:</strong>
+        @Model.RegistrationDate.ToString("MMMM dd, yyyy")
+    </p>
+
+    <div class="registration-actions">
+
+        @if (User.Identity?.IsAuthenticated == true)
+        {
+            <a asp-action="Edit"
+               asp-route-id="@Model.RegistrationId">
+                Edit
+            </a>
+        }
+
+        <a asp-action="Index">
+            Back to Registrations
+        </a>
+
+    </div>
+
+</div>
