@@ -4,85 +4,195 @@
     ViewData["Title"] = "Events";
 }
 
-<div class="events-container">
+<div class="events-page">
 
-    <h1>Events</h1>
+    <!-- Page Header -->
+    <section class="events-page-header">
 
-    @if (User.Identity?.IsAuthenticated == true)
-    {
-        <a asp-action="Create" class="button">Create Event</a>
-    }
+        <div>
+            <span class="section-label">EVENTHUB</span>
+            <h1>Explore Events</h1>
+            <p>
+                Discover exciting events and find something you'll enjoy.
+            </p>
+        </div>
+
+        @if (User.Identity?.IsAuthenticated == true)
+        {
+            <a asp-action="Create" class="btn btn-primary create-event-button">
+                + Create Event
+            </a>
+        }
+
+    </section>
+
 
     @if (!Model.Any())
     {
-        <p>No events are available.</p>
+        <!-- Empty State -->
+        <div class="events-empty-state">
+
+            <div class="empty-events-icon">
+                📅
+            </div>
+
+            <h2>No Events Available</h2>
+
+            <p>
+                There are currently no events available.
+                Check back later for new events.
+            </p>
+
+            @if (User.Identity?.IsAuthenticated == true)
+            {
+                <a asp-action="Create" class="btn btn-primary">
+                    Create the First Event
+                </a>
+            }
+
+        </div>
     }
     else
     {
-        <div class="events-list">
+        <!-- Event Count -->
+        <div class="events-result-header">
+            <p>
+                Showing <strong>@Model.Count()</strong> event(s)
+            </p>
+        </div>
+
+        <!-- Events Grid -->
+        <div class="events-grid">
+
             @foreach (var eventItem in Model)
             {
-                <div class="event-item">
+                <article class="event-list-card">
 
-                    <h2>@eventItem.Title</h2>
-                    <p>@eventItem.Description</p>
+                    <!-- Card Top -->
+                    <div class="event-list-card-top">
 
-                    <p>
-                        <strong>Date:</strong>
-                        @eventItem.EventDate.ToString("MM dd, yyyy")
-                    </p>
+                        <span class="event-badge">
+                            Event
+                        </span>
 
-                    <p>
-                        <strong>Location:</strong>
-                        @eventItem.Location
-                    </p>
-
-                    <p>
-                        <strong>Capacity:</strong>
-                        @eventItem.Capacity
-                    </p>
-
-                    <p>
-                        <strong>Categories:</strong>
-
-                        @if (eventItem.Categories.Any())
-                        {
-                            @foreach (var category in eventItem.Categories)
-                            {
-                                <span>@category.Name </span>
-                            }
-                        }
-                        else
-                        {
-                            <span>No categories</span>
-                        }
-                    </p>
-
-                    <div class="event-actions">
-
-                        <a asp-action="Details"
-                           asp-route-id="@eventItem.EventId">
-                            Details
-                        </a>
-
-                        @if (User.Identity?.IsAuthenticated == true)
-                        {
-                            <a asp-action="Edit"
-                               asp-route-id="@eventItem.EventId">
-                                Edit
-                            </a>
-                        }
-
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <a asp-action="Delete"
-                               asp-route-id="@eventItem.EventId">
-                                Delete
-                            </a>
-                        }
                     </div>
-                </div>
+
+
+                    <!-- Card Content -->
+                    <div class="event-list-card-content">
+
+                        <h2>@eventItem.Title</h2>
+
+                        <p class="event-description">
+                            @eventItem.Description
+                        </p>
+
+
+                        <!-- Event Information -->
+                        <div class="event-list-info">
+
+                            <div class="event-list-info-item">
+                                <span class="info-icon">📅</span>
+
+                                <div>
+                                    <small>Date</small>
+                                    <span>
+                                        @eventItem.EventDate.ToString("MMM dd, yyyy")
+                                    </span>
+                                </div>
+                            </div>
+
+
+                            <div class="event-list-info-item">
+                                <span class="info-icon">📍</span>
+
+                                <div>
+                                    <small>Location</small>
+                                    <span>@eventItem.Location</span>
+                                </div>
+                            </div>
+
+
+                            <div class="event-list-info-item">
+                                <span class="info-icon">👥</span>
+
+                                <div>
+                                    <small>Capacity</small>
+                                    <span>@eventItem.Capacity people</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <!-- Categories -->
+                        <div class="event-categories">
+
+                            <span class="category-label">
+                                Categories
+                            </span>
+
+                            <div class="category-list">
+
+                                @if (eventItem.Categories.Any())
+                                {
+                                    @foreach (var category in eventItem.Categories)
+                                    {
+                                        <span class="category-badge">
+                                            @category.Name
+                                        </span>
+                                    }
+                                }
+                                else
+                                {
+                                    <span class="no-category">
+                                        No categories
+                                    </span>
+                                }
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Actions -->
+                        <div class="event-actions">
+
+                            <a asp-action="Details"
+                               asp-route-id="@eventItem.EventId"
+                               class="event-action-primary">
+                                View Details
+                                <span>→</span>
+                            </a>
+
+
+                            @if (User.Identity?.IsAuthenticated == true)
+                            {
+                                <a asp-action="Edit"
+                                   asp-route-id="@eventItem.EventId"
+                                   class="event-action-secondary">
+                                    Edit
+                                </a>
+                            }
+
+
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a asp-action="Delete"
+                                   asp-route-id="@eventItem.EventId"
+                                   class="event-action-delete">
+                                    Delete
+                                </a>
+                            }
+
+                        </div>
+
+                    </div>
+
+                </article>
             }
+
         </div>
     }
+
 </div>

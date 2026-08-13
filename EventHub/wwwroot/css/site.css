@@ -761,3 +761,351 @@ h1 {
         font-size: 1.7rem;
     }
 }
+
+/* ================================
+   EVENTS PAGE
+   ================================ */
+
+.events-page {
+    padding: 45px 0 30px;
+}
+
+/* ================================
+   EVENTS PAGE HEADER
+   ================================ */
+
+.events-page-header {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 35px;
+}
+
+    .events-page-header h1 {
+        margin: 0 0 8px;
+        font-size: 2.6rem;
+    }
+
+    .events-page-header p {
+        margin: 0;
+        color: #6c757d;
+        font-size: 1.05rem;
+    }
+
+.create-event-button {
+    white-space: nowrap;
+}
+
+/* ================================
+   EVENT RESULTS
+   ================================ */
+
+.events-result-header {
+    margin-bottom: 18px;
+}
+
+    .events-result-header p {
+        margin: 0;
+        color: #6c757d;
+    }
+
+    .events-result-header strong {
+        color: #212529;
+    }
+
+/* ================================
+   EVENTS GRID
+   ================================ */
+
+.events-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+/* ================================
+   EVENT LIST CARD
+   ================================ */
+
+.event-list-card {
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    border: 1px solid #eeeeee;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+}
+
+    .event-list-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+    }
+
+/* ================================
+   EVENT CARD HEADER
+   ================================ */
+
+.event-list-card-top {
+    min-height: 115px;
+    padding: 18px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    background: linear-gradient(135deg, #eeeaff, #f7f5ff);
+}
+
+    .event-list-card-top .event-badge {
+        padding: 6px 12px;
+        border-radius: 20px;
+        background-color: #ffffff;
+        color: #5b4bdb;
+        font-size: 0.75rem;
+        font-weight: 700;
+    }
+
+/* ================================
+   EVENT CARD CONTENT
+   ================================ */
+
+.event-list-card-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 24px;
+}
+
+.event-list-card h2 {
+    margin-bottom: 12px;
+    font-size: 1.35rem;
+}
+
+.event-description {
+    display: -webkit-box;
+    overflow: hidden;
+    margin-bottom: 20px;
+    color: #6c757d;
+    line-height: 1.5;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+}
+
+/* ================================
+   EVENT INFORMATION
+   ================================ */
+
+.event-list-info {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.event-list-info-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.info-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    border-radius: 9px;
+    background-color: #f1efff;
+    font-size: 1rem;
+}
+
+.event-list-info-item div {
+    display: flex;
+    flex-direction: column;
+}
+
+.event-list-info-item small {
+    color: #8a9099;
+    font-size: 0.75rem;
+}
+
+.event-list-info-item span {
+    color: #343a40;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* ================================
+   CATEGORIES
+   ================================ */
+
+.event-categories {
+    margin-bottom: 22px;
+}
+
+.category-label {
+    display: block;
+    margin-bottom: 8px;
+    color: #6c757d;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.category-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.category-badge {
+    padding: 5px 10px;
+    border-radius: 20px;
+    background-color: #f1efff;
+    color: #5b4bdb;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.no-category {
+    color: #8a9099;
+    font-size: 0.8rem;
+}
+
+/* ================================
+   EVENT ACTIONS
+   ================================ */
+
+.event-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: auto;
+    padding-top: 15px;
+    border-top: 1px solid #eeeeee;
+}
+
+.event-action-primary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: 1;
+    min-width: 120px;
+    padding: 9px 12px;
+    border-radius: 8px;
+    background-color: #5b4bdb;
+    color: #ffffff;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+    .event-action-primary:hover {
+        background-color: #4638b8;
+        color: #ffffff;
+    }
+
+.event-action-secondary,
+.event-action-delete {
+    padding: 9px 12px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.event-action-secondary {
+    background-color: #f1f2f4;
+    color: #495057;
+}
+
+    .event-action-secondary:hover {
+        background-color: #e2e4e7;
+        color: #212529;
+    }
+
+.event-action-delete {
+    background-color: #fff0f1;
+    color: #dc3545;
+}
+
+    .event-action-delete:hover {
+        background-color: #dc3545;
+        color: #ffffff;
+    }
+
+/* ================================
+   EMPTY EVENTS
+   ================================ */
+
+.events-empty-state {
+    padding: 70px 25px;
+    text-align: center;
+    background-color: #ffffff;
+    border: 1px dashed #d9dce3;
+    border-radius: 15px;
+}
+
+    .events-empty-state .empty-events-icon {
+        margin-bottom: 15px;
+        font-size: 3rem;
+    }
+
+    .events-empty-state h2 {
+        margin-bottom: 10px;
+    }
+
+    .events-empty-state p {
+        max-width: 500px;
+        margin: 0 auto 25px;
+        color: #6c757d;
+    }
+
+/* ================================
+   EVENTS RESPONSIVE
+   ================================ */
+
+@media (max-width: 991px) {
+
+    .events-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 767px) {
+
+    .events-page {
+        padding-top: 30px;
+    }
+
+    .events-page-header {
+        align-items: flex-start;
+        flex-direction: column;
+        margin-bottom: 25px;
+    }
+
+        .events-page-header h1 {
+            font-size: 2.1rem;
+        }
+
+    .create-event-button {
+        width: 100%;
+    }
+
+    .events-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .event-list-card-content {
+        padding: 20px;
+    }
+
+    .event-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .event-action-primary {
+        flex: none;
+    }
+}
