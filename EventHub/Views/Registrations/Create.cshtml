@@ -4,47 +4,68 @@
     ViewData["Title"] = "Register for Event";
 }
 
-<div class="registration-form">
+<div class="registration-form-page">
 
-    <h1>Register for Event</h1>
+    <div class="registration-form-header">
 
-    <form asp-action="Create" method="post">
+        <span class="section-label">EVENTHUB</span>
 
-        <div asp-validation-summary="ModelOnly"
-             class="validation-message">
-        </div>
+        <h1>Register for Event</h1>
 
-        <div class="form-group">
+        <p>
+            Choose an event and reserve your spot.
+        </p>
 
-            <label asp-for="EventId">Event</label>
+    </div>
 
-            <select asp-for="EventId"
-                    asp-items="ViewBag.EventId">
+    <div class="registration-form-card">
 
-                <option value="">
-                    Select an event
-                </option>
+        <form asp-action="Create" method="post">
 
-            </select>
+            <div asp-validation-summary="ModelOnly"
+                 class="validation-message">
+            </div>
 
-            <span asp-validation-for="EventId"
-                  class="validation-message">
-            </span>
+            <div class="form-group">
 
-        </div>
+                <label asp-for="EventId">
+                    Event
+                </label>
 
-        <div class="form-buttons">
+                <select asp-for="EventId"
+                        asp-items="ViewBag.EventId"
+                        class="form-control">
 
-            <button type="submit">
-                Register
-            </button>
+                    <option value="">
+                        Select an event
+                    </option>
 
-            <a asp-action="Index">
-                Cancel
-            </a>
+                </select>
 
-        </div>
-    </form>
+                <span asp-validation-for="EventId"
+                      class="validation-message">
+                </span>
+
+            </div>
+
+            <div class="form-buttons">
+
+                <button type="submit"
+                        class="btn btn-primary">
+                    Register for Event
+                </button>
+
+                <a asp-action="Index"
+                   class="btn form-cancel-button">
+                    Cancel
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
 </div>
 
 @section Scripts {

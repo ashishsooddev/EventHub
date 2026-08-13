@@ -5,74 +5,194 @@
     ViewData["Title"] = "Registrations";
 }
 
-<div class="registrations-container">
+<div class="registrations-page">
 
-    <h1>Registrations</h1>
+    <!-- Page Header -->
+    <section class="registrations-page-header">
 
-    @if (User.Identity?.IsAuthenticated == true)
-    {
-        <a asp-action="Create" class="button">
-            Register for an Event
-        </a>
-    }
+        <div>
+
+            <span class="section-label">
+                EVENTHUB
+            </span>
+
+            <h1>My Registrations</h1>
+
+            <p>
+                View and manage your event registrations.
+            </p>
+
+        </div>
+
+
+        @if (User.Identity?.IsAuthenticated == true)
+        {
+            <a asp-action="Create"
+               class="btn btn-primary register-event-button">
+                + Register for an Event
+            </a>
+        }
+
+    </section>
+
 
     @if (!Model.Any())
     {
-        <p>No registrations are available.</p>
+        <!-- Empty State -->
+        <div class="registrations-empty-state">
+
+            <div class="registration-empty-icon">
+                🎟️
+            </div>
+
+            <h2>No Registrations Yet</h2>
+
+            <p>
+                You haven't registered for any events yet.
+                Find an event and reserve your spot.
+            </p>
+
+            <a asp-controller="Events"
+               asp-action="Index"
+               class="btn btn-primary">
+                Browse Events
+            </a>
+
+        </div>
     }
     else
     {
-        <div class="registrations-list">
+        <!-- Registration Count -->
+        <div class="registrations-result-header">
+
+            <p>
+                You have
+                <strong>@Model.Count()</strong>
+                @(Model.Count() == 1 ? "registration" : "registrations")
+            </p>
+
+        </div>
+
+
+        <!-- Registration Cards -->
+        <div class="registrations-grid">
 
             @foreach (var registration in Model)
             {
-                <div class="registration-item">
+                <article class="registration-card">
 
-                    <h2>
-                        @registration.Event?.Title
-                    </h2>
+                    <!-- Card Header -->
+                    <div class="registration-card-header">
 
-                    <p>
-                        <strong>Event Date:</strong>
-                        @registration.Event?.EventDate.ToString("MMM dd, yyyy")
-                    </p>
+                        <div class="registration-icon">
+                            🎟️
+                        </div>
 
-                    <p>
-                        <strong>Location:</strong>
-                        @registration.Event?.Location
-                    </p>
-
-                    <p>
-                        <strong>Registration Date:</strong>
-                        @registration.RegistrationDate.ToString("MMM dd, yyyy")
-                    </p>
-
-                    <div class="registration-actions">
-
-                        <a asp-action="Details"
-                           asp-route-id="@registration.RegistrationId">
-                            Details
-                        </a>
-
-                        @if (User.Identity?.IsAuthenticated == true)
-                        {
-                            <a asp-action="Edit"
-                               asp-route-id="@registration.RegistrationId">
-                                Edit
-                            </a>
-                        }
-
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <a asp-action="Delete"
-                               asp-route-id="@registration.RegistrationId">
-                                Delete
-                            </a>
-                        }
+                        <span class="registration-status">
+                            Registered
+                        </span>
 
                     </div>
 
-                </div>
+
+                    <!-- Card Content -->
+                    <div class="registration-card-content">
+
+                        <h2>
+                            @registration.Event?.Title
+                        </h2>
+
+
+                        <div class="registration-information">
+
+                            <div class="registration-info-item">
+
+                                <span class="registration-info-icon">
+                                    📅
+                                </span>
+
+                                <div>
+                                    <small>Event Date</small>
+
+                                    <strong>
+                                        @registration.Event?.EventDate.ToString("MMM dd, yyyy")
+                                    </strong>
+                                </div>
+
+                            </div>
+
+
+                            <div class="registration-info-item">
+
+                                <span class="registration-info-icon">
+                                    📍
+                                </span>
+
+                                <div>
+                                    <small>Location</small>
+
+                                    <strong>
+                                        @registration.Event?.Location
+                                    </strong>
+                                </div>
+
+                            </div>
+
+
+                            <div class="registration-info-item">
+
+                                <span class="registration-info-icon">
+                                    📝
+                                </span>
+
+                                <div>
+                                    <small>Registered On</small>
+
+                                    <strong>
+                                        @registration.RegistrationDate.ToString("MMM dd, yyyy")
+                                    </strong>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Actions -->
+                        <div class="registration-actions">
+
+                            <a asp-action="Details"
+                               asp-route-id="@registration.RegistrationId"
+                               class="registration-action-primary">
+                                View Details
+                                <span>→</span>
+                            </a>
+
+
+                            @if (User.Identity?.IsAuthenticated == true)
+                            {
+                                <a asp-action="Edit"
+                                   asp-route-id="@registration.RegistrationId"
+                                   class="registration-action-secondary">
+                                    Edit
+                                </a>
+                            }
+
+
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a asp-action="Delete"
+                                   asp-route-id="@registration.RegistrationId"
+                                   class="registration-action-delete">
+                                    Delete
+                                </a>
+                            }
+
+                        </div>
+
+                    </div>
+
+                </article>
             }
 
         </div>

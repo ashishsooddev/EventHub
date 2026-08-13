@@ -4,40 +4,111 @@
     ViewData["Title"] = "Registration Details";
 }
 
-<div class="registration-details">
+<div class="registration-details-page">
 
-    <h1>Registration Details</h1>
+    <!-- Header -->
+    <div class="registration-details-header">
 
-    <h2>@Model.Event?.Title</h2>
+        <div class="registration-details-icon">
+            🎟️
+        </div>
 
-    <p>
-        <strong>Event Date:</strong>
-        @Model.Event?.EventDate.ToString("MMMM dd, yyyy h:mm tt")
-    </p>
+        <div>
+            <span class="section-label">EVENTHUB REGISTRATION</span>
 
-    <p>
-        <strong>Location:</strong>
-        @Model.Event?.Location
-    </p>
+            <h1>Registration Details</h1>
 
-    <p>
-        <strong>Registration Date:</strong>
-        @Model.RegistrationDate.ToString("MMMM dd, yyyy")
-    </p>
+            <p>
+                Your event registration information.
+            </p>
+        </div>
 
-    <div class="registration-actions">
+    </div>
 
-        @if (User.Identity?.IsAuthenticated == true)
-        {
-            <a asp-action="Edit"
-               asp-route-id="@Model.RegistrationId">
-                Edit
+
+    <!-- Details Card -->
+    <div class="registration-details-card">
+
+        <span class="details-label">
+            REGISTERED EVENT
+        </span>
+
+        <h2>@Model.Event?.Title</h2>
+
+
+        <div class="registration-details-information">
+
+            <div class="registration-detail-item">
+
+                <span class="registration-detail-icon">
+                    📅
+                </span>
+
+                <div>
+                    <small>Event Date</small>
+
+                    <strong>
+                        @Model.Event?.EventDate.ToString("MMMM dd, yyyy h:mm tt")
+                    </strong>
+                </div>
+
+            </div>
+
+
+            <div class="registration-detail-item">
+
+                <span class="registration-detail-icon">
+                    📍
+                </span>
+
+                <div>
+                    <small>Location</small>
+
+                    <strong>
+                        @Model.Event?.Location
+                    </strong>
+                </div>
+
+            </div>
+
+
+            <div class="registration-detail-item">
+
+                <span class="registration-detail-icon">
+                    📝
+                </span>
+
+                <div>
+                    <small>Registration Date</small>
+
+                    <strong>
+                        @Model.RegistrationDate.ToString("MMMM dd, yyyy")
+                    </strong>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Actions -->
+        <div class="registration-details-actions">
+
+            @if (User.Identity?.IsAuthenticated == true)
+            {
+                <a asp-action="Edit"
+                   asp-route-id="@Model.RegistrationId"
+                   class="registration-details-edit">
+                    Edit Registration
+                </a>
+            }
+
+            <a asp-action="Index"
+               class="registration-details-back">
+                ← Back to Registrations
             </a>
-        }
 
-        <a asp-action="Index">
-            Back to Registrations
-        </a>
+        </div>
 
     </div>
 
