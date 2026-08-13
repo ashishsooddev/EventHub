@@ -43,8 +43,19 @@
                     </p>
 
                     <p>
-                        <strong>Category:</strong>
-                        @eventItem.Category?.Name
+                        <strong>Categories:</strong>
+
+                        @if (eventItem.Categories.Any())
+                        {
+                            @foreach (var category in eventItem.Categories)
+                            {
+                                <span>@category.Name </span>
+                            }
+                        }
+                        else
+                        {
+                            <span>No categories</span>
+                        }
                     </p>
 
                     <div class="event-actions">
