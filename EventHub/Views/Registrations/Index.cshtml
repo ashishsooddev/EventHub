@@ -1,5 +1,80 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<EventHub.Models.Registration>
+
 @{
+    ViewData["Title"] = "Registrations";
 }
+
+<div class="registrations-container">
+
+    <h1>Registrations</h1>
+
+    @if (User.Identity?.IsAuthenticated == true)
+    {
+        <a asp-action="Create" class="button">
+            Register for an Event
+        </a>
+    }
+
+    @if (!Model.Any())
+    {
+        <p>No registrations are available.</p>
+    }
+    else
+    {
+        <div class="registrations-list">
+
+            @foreach (var registration in Model)
+            {
+                <div class="registration-item">
+
+                    <h2>
+                        @registration.Event?.Title
+                    </h2>
+
+                    <p>
+                        <strong>Event Date:</strong>
+                        @registration.Event?.EventDate.ToString("MMM dd, yyyy")
+                    </p>
+
+                    <p>
+                        <strong>Location:</strong>
+                        @registration.Event?.Location
+                    </p>
+
+                    <p>
+                        <strong>Registration Date:</strong>
+                        @registration.RegistrationDate.ToString("MMM dd, yyyy")
+                    </p>
+
+                    <div class="registration-actions">
+
+                        <a asp-action="Details"
+                           asp-route-id="@registration.RegistrationId">
+                            Details
+                        </a>
+
+                        @if (User.Identity?.IsAuthenticated == true)
+                        {
+                            <a asp-action="Edit"
+                               asp-route-id="@registration.RegistrationId">
+                                Edit
+                            </a>
+                        }
+
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a asp-action="Delete"
+                               asp-route-id="@registration.RegistrationId">
+                                Delete
+                            </a>
+                        }
+
+                    </div>
+
+                </div>
+            }
+
+        </div>
+    }
+
+</div>
