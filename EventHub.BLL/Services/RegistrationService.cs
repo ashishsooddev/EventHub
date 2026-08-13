@@ -12,7 +12,6 @@ namespace EventHub.BLL.Services;
 public class RegistrationService
 {
     private readonly ApplicationDbContext _context;
-
     public RegistrationService(ApplicationDbContext context)
     {
         _context = context;
@@ -52,5 +51,11 @@ public class RegistrationService
             _context.Registrations.Remove(registration);
             await _context.SaveChangesAsync();
         }
+    }
+    public async Task<List<Event>> GetEventsAsync()
+    {
+        return await _context.Events
+            .OrderBy(e => e.Title)
+            .ToListAsync();
     }
 }

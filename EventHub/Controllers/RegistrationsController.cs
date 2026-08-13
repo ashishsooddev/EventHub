@@ -1,23 +1,34 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using EventHub.BLL.Services;
+﻿using EventHub.BLL.Services;
 using EventHub.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace EventHub.Controllers
 {
+    [Authorize]
     public class RegistrationsController : Controller
     {
         private readonly RegistrationService _registrationService;
-        public RegistrationsController(RegistrationService registrationService)
+        private readonly UserManager<IdentityUser> _userManager;
+
+        public RegistrationsController(
+            RegistrationService registrationService,
+            UserManager<IdentityUser> userManager)
         {
             _registrationService = registrationService;
+            _userManager = userManager;
         }
+
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var registrations = await _registrationService.GetAllAsync();
             return View(registrations);
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int id)
         {
             var registration = await _registrationService.GetByIdAsync(id);
@@ -26,11 +37,17 @@ namespace EventHub.Controllers
             {
                 return NotFound();
             }
+
             return View(registration);
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            ViewBag.EventId = new SelectList(
+                await _registrationService.GetEventsAsync(),
+                "EventId",
+                "Title");
+
             return View();
         }
 
@@ -40,12 +57,19 @@ namespace EventHub.Controllers
         {
             if (!ModelState.IsValid)
             {
+                ViewBag.EventId = new SelectList(
+                    await _registrationService.GetEventsAsync(),
+                    "EventId",
+                    "Title");
+
                 return View(registration);
             }
 
+            registration.UserId = _userManager.GetUserId(User)!;
             registration.RegistrationDate = DateTime.Now;
 
             await _registrationService.CreateAsync(registration);
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -58,14 +82,18 @@ namespace EventHub.Controllers
                 return NotFound();
             }
 
+            ViewBag.EventId = new SelectList(
+                await _registrationService.GetEventsAsync(),
+                "EventId",
+                "Title",
+                registration.EventId);
+
             return View(registration);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(
-            int id,
-            Registration registration)
+        public async Task<IActionResult> Edit(int id, Registration registration)
         {
             if (id != registration.RegistrationId)
             {
@@ -74,10 +102,19 @@ namespace EventHub.Controllers
 
             if (!ModelState.IsValid)
             {
+                ViewBag.EventId = new SelectList(
+                    await _registrationService.GetEventsAsync(),
+                    "EventId",
+                    "Title",
+                    registration.EventId);
+
                 return View(registration);
             }
 
+            registration.UserId = _userManager.GetUserId(User)!;
+
             await _registrationService.UpdateAsync(registration);
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -100,6 +137,7 @@ namespace EventHub.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             await _registrationService.DeleteAsync(id);
+
             return RedirectToAction(nameof(Index));
         }
     }
