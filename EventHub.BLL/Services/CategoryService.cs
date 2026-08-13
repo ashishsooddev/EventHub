@@ -3,10 +3,39 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EventHub.DAL.Data;
+using EventHub.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace EventHub.BLL.Services
+namespace EventHub.BLL.Services;
+
+public class CategoryService
 {
-    internal class CategoryService
+    private readonly ApplicationDbContext _context;
+
+    public CategoryService(ApplicationDbContext context)
     {
+        _context = context;
     }
+
+    public async Task<List<Category>> GetAllAsync()
+    {
+        return await _context.Categories
+            .Include(c => c.Events)
+            .ToListAsync();
+    }
+
+    public async Task<Category?> GetByIdAsync(int id)
+    {
+        return await _context.Categories
+            .Include(c => c.Events)
+            .FirstOrDefaultAsync(c => c.CategoryId == id);
+    }
+
+    public async Task CreateAsync(Category category)
+    {
+        _context.Categories.Add(category);
+        await _context.SaveChangesAsync();
+    }
+
 }
