@@ -13,5 +13,25 @@ namespace EventHub.Controllers
         {
             _eventService = eventService;
         }
+
+        [AllowAnonymous] // used so anyone can view event details.
+        public async Task<IActionResult> Index()
+        {
+            var events = await _eventService.GetAllAsync();
+            return View(events);
+        }
+
+        [AllowAnonymous]
+        public async Task<IActionResult> Details(int id)
+        {
+            var eventItem = await _eventService.GetByIdAsync(id);
+
+            if (eventItem == null)
+            {
+                return NotFound();
+            }
+            return View(eventItem);
+        }
+
     }
 }
