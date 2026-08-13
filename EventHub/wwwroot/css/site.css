@@ -1,22 +1,211 @@
+/* ================================
+   EVENTHUB - GLOBAL STYLES
+   ================================ */
+
 html {
-  font-size: 14px;
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
+/* ================================
+   BODY
+   ================================ */
 
 body {
-  margin-bottom: 60px;
+    margin: 0;
+    margin-bottom: 60px;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f8f9fc;
+    color: #212529;
+    line-height: 1.6;
+}
+
+/* ================================
+   LINKS
+   ================================ */
+
+a {
+    color: #5b4bdb;
+    text-decoration: none;
+}
+
+    a:hover {
+        color: #4638b8;
+    }
+
+/* ================================
+   BUTTONS
+   ================================ */
+
+.btn {
+    border-radius: 8px;
+    padding: 9px 18px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.btn-primary {
+    background-color: #5b4bdb;
+    border-color: #5b4bdb;
+}
+
+    .btn-primary:hover {
+        background-color: #4638b8;
+        border-color: #4638b8;
+        transform: translateY(-1px);
+    }
+
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.btn-success {
+    background-color: #198754;
+    border-color: #198754;
+}
+
+/* ================================
+   FORM CONTROLS
+   ================================ */
+
+.form-control,
+.form-select {
+    border-radius: 8px;
+    border: 1px solid #d9dce3;
+    padding: 10px 12px;
+}
+
+    .form-control:focus,
+    .form-select:focus,
+    .form-check-input:focus {
+        border-color: #5b4bdb;
+        box-shadow: 0 0 0 0.2rem rgba(91, 75, 219, 0.15);
+    }
+
+/* ================================
+   CARDS
+   ================================ */
+
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+.card-header {
+    background-color: #ffffff;
+    border-bottom: 1px solid #eeeeee;
+    font-weight: 600;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+/* ================================
+   HEADINGS
+   ================================ */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 700;
+    color: #212529;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+/* ================================
+   CONTAINER
+   ================================ */
+
+.container {
+    max-width: 1200px;
+}
+
+/* ================================
+   TABLES
+   ================================ */
+
+.table {
+    background-color: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+    .table th {
+        font-weight: 600;
+        background-color: #f1f2f7;
+    }
+
+    .table td,
+    .table th {
+        padding: 12px 15px;
+        vertical-align: middle;
+    }
+
+/* ================================
+   FOCUS ACCESSIBILITY
+   ================================ */
+
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus {
+    box-shadow: 0 0 0 0.15rem white, 0 0 0 0.3rem #5b4bdb;
+}
+
+/* ================================
+   VALIDATION
+   ================================ */
+
+.field-validation-error {
+    color: #dc3545;
+    font-size: 0.9rem;
+}
+
+.input-validation-error {
+    border-color: #dc3545;
+}
+
+/* ================================
+   RESPONSIVE
+   ================================ */
+
+@media (max-width: 767px) {
+
+    body {
+        margin-bottom: 40px;
+    }
+
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    .btn {
+        padding: 8px 14px;
+    }
 }
