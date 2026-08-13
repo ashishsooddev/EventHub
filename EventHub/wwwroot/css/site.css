@@ -1559,3 +1559,231 @@ h1 {
             width: 100%;
         }
 }
+
+/* ================================
+   DELETE EVENT PAGE
+   ================================ */
+
+.delete-page {
+    max-width: 750px;
+    margin: 0 auto;
+    padding: 50px 0;
+}
+
+/* ================================
+   DELETE HEADER
+   ================================ */
+
+.delete-header {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.delete-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 55px;
+    height: 55px;
+    margin: 0 auto 15px;
+    border-radius: 50%;
+    background-color: #fff0f1;
+    color: #dc3545;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.delete-header .section-label {
+    color: #dc3545;
+}
+
+.delete-header h1 {
+    margin-bottom: 10px;
+    font-size: 2.4rem;
+}
+
+.delete-header p {
+    margin: 0 auto;
+    max-width: 550px;
+    color: #6c757d;
+}
+
+/* ================================
+   DELETE CARD
+   ================================ */
+
+.delete-card {
+    padding: 32px;
+    background-color: #ffffff;
+    border: 1px solid #eeeeee;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+}
+
+.delete-event-information h2 {
+    margin-bottom: 25px;
+    font-size: 1.6rem;
+}
+
+/* ================================
+   DELETE EVENT DETAILS
+   ================================ */
+
+.delete-event-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.delete-detail-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    border-radius: 10px;
+    background-color: #f8f9fc;
+}
+
+.delete-detail-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: 9px;
+    background-color: #f1efff;
+}
+
+.delete-detail-item div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.delete-detail-item small,
+.delete-categories small {
+    color: #8a9099;
+    font-size: 0.75rem;
+}
+
+.delete-detail-item strong {
+    color: #343a40;
+    font-size: 0.9rem;
+}
+
+/* ================================
+   DELETE CATEGORIES
+   ================================ */
+
+.delete-categories {
+    padding-top: 20px;
+    border-top: 1px solid #eeeeee;
+}
+
+    .delete-categories > small {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+/* ================================
+   DELETE WARNING
+   ================================ */
+
+.delete-warning {
+    margin: 25px 0;
+    padding: 15px 18px;
+    border-left: 4px solid #dc3545;
+    border-radius: 6px;
+    background-color: #fff5f5;
+}
+
+    .delete-warning strong {
+        display: block;
+        margin-bottom: 5px;
+        color: #dc3545;
+    }
+
+    .delete-warning p {
+        margin: 0;
+        color: #6c757d;
+        font-size: 0.9rem;
+    }
+
+/* ================================
+   DELETE BUTTONS
+   ================================ */
+
+.delete-form {
+    display: flex;
+    gap: 10px;
+    padding-top: 25px;
+    border-top: 1px solid #eeeeee;
+}
+
+.delete-confirm-button,
+.delete-cancel-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 140px;
+    padding: 11px 18px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.delete-confirm-button {
+    border: 1px solid #dc3545;
+    background-color: #dc3545;
+    color: white;
+}
+
+    .delete-confirm-button:hover {
+        border-color: #bb2d3b;
+        background-color: #bb2d3b;
+    }
+
+.delete-cancel-button {
+    border: 1px solid #e2e4e7;
+    background-color: #f1f2f4;
+    color: #495057;
+}
+
+    .delete-cancel-button:hover {
+        background-color: #e2e4e7;
+        color: #212529;
+    }
+
+/* ================================
+   DELETE RESPONSIVE
+   ================================ */
+
+@media (max-width: 767px) {
+
+    .delete-page {
+        padding: 30px 15px 40px;
+    }
+
+    .delete-header h1 {
+        font-size: 2.1rem;
+    }
+
+    .delete-card {
+        padding: 22px;
+    }
+
+    .delete-event-details {
+        grid-template-columns: 1fr;
+    }
+
+    .delete-form {
+        flex-direction: column;
+    }
+
+    .delete-confirm-button,
+    .delete-cancel-button {
+        width: 100%;
+    }
+}

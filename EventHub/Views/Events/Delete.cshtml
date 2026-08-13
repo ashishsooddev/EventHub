@@ -6,43 +6,140 @@
 
 <div class="delete-page">
 
-    <h1>Delete Event</h1>
+    <!-- Delete Header -->
+    <div class="delete-header">
 
-    <p>Are you sure you want to delete this event?</p>
+        <div class="delete-icon">
+            !
+        </div>
 
-    <div class="event-information">
+        <span class="section-label">
+            EVENTHUB
+        </span>
 
-        <h2>@Model.Title</h2>
-        <p>
-            <strong>Date:</strong>
-            @Model.EventDate.ToString("MMMM dd, yyyy")
-        </p>
-
-        <p>
-            <strong>Location:</strong>
-            @Model.Location
-        </p>
+        <h1>Delete Event</h1>
 
         <p>
-            <strong>Categories:</strong>
-
-            @if (Model.Categories.Any())
-            {
-                @foreach (var category in Model.Categories)
-                {
-                    <span>@category.Name </span>
-                }
-            }
-            else
-            {
-                <span>No categories</span>
-            }
+            Are you sure you want to delete this event?
+            This action cannot be undone.
         </p>
+
     </div>
 
-    <form asp-action="Delete" method="post">
-        <input type="hidden"asp-for="EventId" />
-        <button type="submit">Delete Event</button>
-        <a asp-action="Index">Cancel</a>
-    </form>
+
+    <!-- Event Information -->
+    <div class="delete-card">
+
+        <div class="delete-event-information">
+
+            <span class="details-label">
+                EVENT TO BE DELETED
+            </span>
+
+            <h2>@Model.Title</h2>
+
+
+            <div class="delete-event-details">
+
+                <div class="delete-detail-item">
+
+                    <span class="delete-detail-icon">
+                        📅
+                    </span>
+
+                    <div>
+                        <small>Date</small>
+
+                        <strong>
+                            @Model.EventDate.ToString("MMMM dd, yyyy")
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div class="delete-detail-item">
+
+                    <span class="delete-detail-icon">
+                        📍
+                    </span>
+
+                    <div>
+                        <small>Location</small>
+
+                        <strong>
+                            @Model.Location
+                        </strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Categories -->
+            <div class="delete-categories">
+
+                <small>Categories</small>
+
+                <div class="details-categories">
+
+                    @if (Model.Categories.Any())
+                    {
+                        @foreach (var category in Model.Categories)
+                        {
+                            <span class="details-category-badge">
+                                @category.Name
+                            </span>
+                        }
+                    }
+                    else
+                    {
+                        <span class="no-category">
+                            No categories
+                        </span>
+                    }
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Confirmation -->
+        <div class="delete-warning">
+
+            <strong>Warning</strong>
+
+            <p>
+                Deleting this event will permanently remove it
+                from EventHub.
+            </p>
+
+        </div>
+
+
+        <!-- Buttons -->
+        <form asp-action="Delete"
+              method="post"
+              class="delete-form">
+
+            <input type="hidden"
+                   asp-for="EventId" />
+
+            <button type="submit"
+                    class="delete-confirm-button">
+                Delete Event
+            </button>
+
+            <a asp-action="Index"
+               class="delete-cancel-button">
+                Cancel
+            </a>
+
+        </form>
+
+    </div>
+
 </div>
