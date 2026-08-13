@@ -1,12 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using EventHub.BLL.Services;
+using EventHub.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EventHub.Controllers
 {
     public class EventsController : Controller
     {
-        public IActionResult Index()
+    private readonly EventService _eventService;
+
+        public EventsController(EventService eventService)
         {
-            return View();
+            _eventService = eventService;
         }
     }
 }
