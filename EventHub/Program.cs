@@ -1,6 +1,7 @@
 using EventHub.DAL.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using EventHub.BLL.Services;
 
 namespace EventHub;
 
@@ -25,6 +26,10 @@ public class Program
         builder.Services.AddControllersWithViews();
 
         builder.Services.AddRazorPages();
+
+        builder.Services.AddScoped<EventService>();
+        builder.Services.AddScoped<CategoryService>();
+        builder.Services.AddScoped<RegistrationService>();
 
         var app = builder.Build();
 
