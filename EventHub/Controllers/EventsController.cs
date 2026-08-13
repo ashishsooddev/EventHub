@@ -2,6 +2,7 @@
 using EventHub.BLL.Services;
 using EventHub.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace EventHub.Controllers
 {
@@ -34,23 +35,30 @@ namespace EventHub.Controllers
         }
 
         [Authorize]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            var categories = await _eventService.GetCategoriesAsync();
+
+            ViewBag.Categories = new MultiSelectList(
+                categories,
+                "CategoryId",
+                "Name");
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-
         [Authorize]
-        public async Task<IActionResult> Create(Event eventItem)
+        public async Task<IActionResult> Create(
+            Event eventItem,
+            int[] CategoryIds)
         {
             if (!ModelState.IsValid)
             {
                 return View(eventItem);
             }
 
-            await _eventService.CreateAsync(eventItem);
+            await _eventService.CreateAsync(eventItem, CategoryIds);
             return RedirectToAction(nameof(Index));
         }
 
@@ -63,6 +71,14 @@ namespace EventHub.Controllers
             {
                 return NotFound();
             }
+            var categories = await _eventService.GetCategoriesAsync();
+            var selectedCategories = eventItem.Categories
+                .Select(c => c.CategoryId);
+            ViewBag.Categories = new MultiSelectList(
+                categories,
+                "CategoryId",
+                "Name",
+                selectedCategories);
 
             return View(eventItem);
         }
@@ -70,18 +86,30 @@ namespace EventHub.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Edit(int id, Event eventItem)
+        public async Task<IActionResult> Edit(
+            int id,
+            Event eventItem,
+            int[] CategoryIds)
         {
             if (id != eventItem.EventId)
             {
                 return NotFound();
             }
+
             if (!ModelState.IsValid)
             {
+                var categories = await _eventService.GetCategoriesAsync();
+
+                ViewBag.Categories = new MultiSelectList(
+                    categories,
+                    "CategoryId",
+                    "Name",
+                    CategoryIds);
                 return View(eventItem);
             }
 
-            await _eventService.UpdateAsync(eventItem);
+            await _eventService.UpdateAsync(eventItem, CategoryIds);
+
             return RedirectToAction(nameof(Index));
         }
 
