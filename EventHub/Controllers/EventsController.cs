@@ -33,5 +33,25 @@ namespace EventHub.Controllers
             return View(eventItem);
         }
 
+        [Authorize]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+
+        [Authorize]
+        public async Task<IActionResult> Create(Event eventItem)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(eventItem);
+            }
+
+            await _eventService.CreateAsync(eventItem);
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
