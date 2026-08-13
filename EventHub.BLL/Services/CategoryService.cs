@@ -17,7 +17,6 @@ public class CategoryService
     {
         _context = context;
     }
-
     public async Task<List<Category>> GetAllAsync()
     {
         return await _context.Categories
@@ -46,8 +45,7 @@ public class CategoryService
 
     public async Task DeleteAsync(int id)
     {
-        var category = await _context.Categories
-            .FindAsync(id);
+        var category = await _context.Categories.FindAsync(id);
 
         if (category != null)
         {
@@ -55,5 +53,4 @@ public class CategoryService
             await _context.SaveChangesAsync();
         }
     }
-
 }
