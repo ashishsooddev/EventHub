@@ -48,5 +48,59 @@ namespace EventHub.Controllers
             await _registrationService.CreateAsync(registration);
             return RedirectToAction(nameof(Index));
         }
+
+        public async Task<IActionResult> Edit(int id)
+        {
+            var registration = await _registrationService.GetByIdAsync(id);
+
+            if (registration == null)
+            {
+                return NotFound();
+            }
+
+            return View(registration);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(
+            int id,
+            Registration registration)
+        {
+            if (id != registration.RegistrationId)
+            {
+                return NotFound();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(registration);
+            }
+
+            await _registrationService.UpdateAsync(registration);
+            return RedirectToAction(nameof(Index));
+        }
+
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var registration = await _registrationService.GetByIdAsync(id);
+
+            if (registration == null)
+            {
+                return NotFound();
+            }
+
+            return View(registration);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            await _registrationService.DeleteAsync(id);
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
