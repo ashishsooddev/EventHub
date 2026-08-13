@@ -84,7 +84,26 @@ namespace EventHub.Controllers
             await _eventService.UpdateAsync(eventItem);
             return RedirectToAction(nameof(Index));
         }
-        
 
+        [Authorize(Roles = "Admin")] // only given to Admin 
+        public async Task<IActionResult> Delete(int id)
+        {
+            var eventItem = await _eventService.GetByIdAsync(id);
+
+            if (eventItem == null)
+            {
+                return NotFound();
+            }
+            return View(eventItem);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            await _eventService.DeleteAsync(id);
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
