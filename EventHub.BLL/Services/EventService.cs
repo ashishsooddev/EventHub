@@ -33,5 +33,27 @@ public class EventService
             .Include(e => e.Registrations)
             .FirstOrDefaultAsync(e => e.EventId == id);
     }
+    public async Task CreateAsync(Event eventItem)
+    {
+        _context.Events.Add(eventItem);
+        await _context.SaveChangesAsync();
+    }
 
+    public async Task UpdateAsync(Event eventItem)
+    {
+        _context.Events.Update(eventItem);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task DeleteAsync(int id)
+    {
+        var eventItem = await _context.Events
+            .FindAsync(id);
+
+        if (eventItem != null)
+        {
+            _context.Events.Remove(eventItem);
+            await _context.SaveChangesAsync();
+        }
+    }
 }
