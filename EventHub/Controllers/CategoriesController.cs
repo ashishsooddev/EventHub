@@ -1,13 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using EventHub.BLL.Services;
+﻿using EventHub.BLL.Services;
 using EventHub.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace EventHub.Controllers
 {
     public class CategoriesController : Controller
     {
         private readonly CategoryService _categoryService;
+
         public CategoriesController(CategoryService categoryService)
         {
             _categoryService = categoryService;
@@ -53,7 +54,6 @@ namespace EventHub.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-
         [Authorize]
         public async Task<IActionResult> Edit(int id)
         {
@@ -83,9 +83,11 @@ namespace EventHub.Controllers
             }
 
             await _categoryService.UpdateAsync(category);
+
             return RedirectToAction(nameof(Index));
         }
 
+        // Only Admin can delete
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -105,6 +107,7 @@ namespace EventHub.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             await _categoryService.DeleteAsync(id);
+
             return RedirectToAction(nameof(Index));
         }
     }
