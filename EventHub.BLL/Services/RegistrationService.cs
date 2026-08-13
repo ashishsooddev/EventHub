@@ -31,5 +31,10 @@ public class RegistrationService
             .Include(r => r.Event)
             .FirstOrDefaultAsync(r => r.RegistrationId == id);
     }
+    public async Task CreateAsync(Registration registration)
+    {
+        _context.Registrations.Add(registration);
+        await _context.SaveChangesAsync();
+    }
 
 }
