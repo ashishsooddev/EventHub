@@ -7,6 +7,10 @@ namespace EventHub.Controllers
 {
     public class RegistrationsController : Controller
     {
-
+        private readonly RegistrationService _registrationService;
+        public RegistrationsController(RegistrationService registrationService)
+        {
+            _registrationService = registrationService;
+        }
     }
 }
