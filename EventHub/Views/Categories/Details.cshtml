@@ -1,5 +1,49 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model EventHub.Models.Category
+
 @{
+    ViewData["Title"] = "Category Details";
 }
+
+<div class="category-details">
+
+    <h1>Category Details</h1>
+
+    <h2>@Model.Name</h2>
+
+    <p>
+        <strong>Description:</strong>
+        @Model.Description
+    </p>
+
+    <h3>Events</h3>
+
+    @if (Model.Events.Any())
+    {
+        <ul class="category-events">
+
+            @foreach (var eventItem in Model.Events)
+            {
+                <li>@eventItem.Title</li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p>No events are assigned to this category.</p>
+    }
+
+    <div class="category-actions">
+
+        @if (User.Identity?.IsAuthenticated == true)
+        {
+            <a asp-action="Edit"
+               asp-route-id="@Model.CategoryId">
+                Edit
+            </a>
+        }
+
+        <a asp-action="Index">
+            Back to Categories
+        </a>
+    </div>
+</div>
