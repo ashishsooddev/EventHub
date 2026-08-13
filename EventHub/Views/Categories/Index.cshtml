@@ -1,5 +1,64 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<EventHub.Models.Category>
+
 @{
+    ViewData["Title"] = "Categories";
 }
+
+<div class="categories-container">
+
+    <h1>Categories</h1>
+
+    @if (User.Identity?.IsAuthenticated == true)
+    {
+        <a asp-action="Create" class="button">Create Category</a>
+    }
+
+    @if (!Model.Any())
+    {
+        <p>No categories are available this moment.</p>
+    }
+    else
+    {
+        <div class="categories-list">
+
+            @foreach (var category in Model)
+            {
+                <div class="category-item">
+
+                    <h2>@category.Name</h2>
+
+                    <p>@category.Description</p>
+
+                    <p>
+                        <strong>Events:</strong>
+                        @category.Events.Count
+                    </p>
+
+                    <div class="category-actions">
+
+                        <a asp-action="Details"
+                           asp-route-id="@category.CategoryId">
+                            Details
+                        </a>
+
+                        @if (User.Identity?.IsAuthenticated == true)
+                        {
+                            <a asp-action="Edit"
+                               asp-route-id="@category.CategoryId">
+                                Edit
+                            </a>
+                        }
+                        @* This is used Only ADMIN has access to delete anything *@
+                        @if (User.IsInRole("Admin"))    
+                        {
+                            <a asp-action="Delete"
+                               asp-route-id="@category.CategoryId">
+                                Delete
+                            </a>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
