@@ -6,61 +6,187 @@
 
 <div class="home-page">
 
-    <h1>Welcome to EventHub</h1>
+    <!-- Hero Section -->
+    <section class="home-hero">
 
-    <p>Discover and manage upcoming events.</p>
+        <div class="hero-content">
+            <span class="hero-label">WELCOME TO EVENTHUB</span>
 
-    <div class="dashboard-cards">
+            <h1>Discover Events.<br />Create Memories.</h1>
 
-        <div class="dashboard-card">
-            <h2>@Model.TotalEvents</h2>
-            <p>Total Events</p>
+            <p>
+                Discover exciting events, explore new experiences,
+                and stay connected with what's happening around you.
+            </p>
+
+            <div class="hero-buttons">
+                <a asp-controller="Events"
+                   asp-action="Index"
+                   class="btn btn-primary">
+                    Explore Events
+                </a>
+
+                @if (User.Identity != null && User.Identity.IsAuthenticated)
+                {
+                    <a asp-controller="Events"
+                       asp-action="Create"
+                       class="btn hero-secondary-button">
+                        Create Event
+                    </a>
+                }
+            </div>
         </div>
 
-        <div class="dashboard-card">
-            <h2>@Model.TotalCategories</h2>
-            <p>Total Categories</p>
+        <div class="hero-decoration">
+            <div class="hero-calendar">
+                <div class="calendar-top">
+                    <span>EVENT</span>
+                    <span>HUB</span>
+                </div>
+
+                <div class="calendar-content">
+                    <div class="calendar-number">2026</div>
+                    <div class="calendar-text">Discover what's happening.</div>
+                </div>
+            </div>
         </div>
 
-        <div class="dashboard-card">
-            <h2>@Model.TotalRegistrations</h2>
-            <p>Total Registrations</p>
+    </section>
+
+
+    <!-- Dashboard Statistics -->
+    <section class="dashboard-section">
+
+        <div class="section-heading">
+            <span class="section-label">EVENTHUB AT A GLANCE</span>
+            <h2>Explore Our Community</h2>
         </div>
 
-    </div>
+        <div class="dashboard-cards">
 
-    <div class="upcoming-events">
+            <div class="dashboard-card">
+                <div class="dashboard-icon">
+                    📅
+                </div>
 
-        <h2>Upcoming Events</h2>
+                <div>
+                    <h2>@Model.TotalEvents</h2>
+                    <p>Total Events</p>
+                </div>
+            </div>
+
+            <div class="dashboard-card">
+                <div class="dashboard-icon">
+                    🏷️
+                </div>
+
+                <div>
+                    <h2>@Model.TotalCategories</h2>
+                    <p>Total Categories</p>
+                </div>
+            </div>
+
+            <div class="dashboard-card">
+                <div class="dashboard-icon">
+                    👥
+                </div>
+
+                <div>
+                    <h2>@Model.TotalRegistrations</h2>
+                    <p>Total Registrations</p>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Upcoming Events -->
+    <section class="upcoming-events">
+
+        <div class="section-heading events-heading">
+
+            <div>
+                <span class="section-label">DON'T MISS OUT</span>
+                <h2>Upcoming Events</h2>
+            </div>
+
+            <a asp-controller="Events"
+               asp-action="Index"
+               class="view-all-link">
+                View All Events →
+            </a>
+
+        </div>
+
 
         @if (Model.UpcomingEvents.Any())
         {
-            @foreach (var eventItem in Model.UpcomingEvents)
-            {
-                <div class="event-card">
+            <div class="event-grid">
 
-                    <h3>@eventItem.Title</h3>
+                @foreach (var eventItem in Model.UpcomingEvents)
+                {
+                    <div class="event-card">
 
-                    <p>
-                        @eventItem.EventDate.ToString("MMM dd, yyyy h:mm tt")
-                    </p>
+                        <div class="event-card-header">
+                            <span class="event-badge">
+                                Upcoming
+                            </span>
+                        </div>
 
-                    <p>@eventItem.Location</p>
+                        <div class="event-card-body">
 
-                    <a asp-controller="Events"
-                       asp-action="Details"
-                       asp-route-id="@eventItem.EventId">
-                        View Details
-                    </a>
+                            <h3>@eventItem.Title</h3>
 
-                </div>
-            }
+                            <div class="event-info">
+                                <p>
+                                    <span class="event-info-icon">📅</span>
+                                    @eventItem.EventDate.ToString("MMM dd, yyyy")
+                                </p>
+
+                                <p>
+                                    <span class="event-info-icon">🕒</span>
+                                    @eventItem.EventDate.ToString("h:mm tt")
+                                </p>
+
+                                <p>
+                                    <span class="event-info-icon">📍</span>
+                                    @eventItem.Location
+                                </p>
+                            </div>
+
+                            <a asp-controller="Events"
+                               asp-action="Details"
+                               asp-route-id="@eventItem.EventId"
+                               class="event-details-button">
+                                View Details
+                                <span>→</span>
+                            </a>
+
+                        </div>
+
+                    </div>
+                }
+
+            </div>
         }
         else
         {
-            <p>No upcoming events.</p>
+            <div class="empty-events">
+                <div class="empty-events-icon">
+                    📅
+                </div>
+
+                <h3>No Upcoming Events</h3>
+
+                <p>
+                    There are currently no upcoming events.
+                    Check back soon for new events.
+                </p>
+            </div>
         }
 
-    </div>
+    </section>
 
 </div>
